@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <OutputType>WinExe</OutputType>
+        <ApplicationManifest>app.manifest</ApplicationManifest>
+        <LangVersion>Latest</LangVersion>
+        <Configurations>Debug;Release;TEST</Configurations>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Content Include="scripts\**" CopyToOutputDirectory="Always" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.PowerShell.3.ReferenceAssemblies" Version="1.0.0" />
+        <PackageReference Include="System.IO.Pipes.AccessControl" Version="5.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Update="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" />
+    </ItemGroup>
+
+</Project>

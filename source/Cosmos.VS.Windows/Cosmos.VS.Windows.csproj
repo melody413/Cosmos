@@ -1,0 +1,51 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net48</TargetFramework>
+        <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+        <RootNamespace>Cosmos.VS.Windows</RootNamespace>
+        <CreateVsixContainer>False</CreateVsixContainer>
+        <DeployExtension>False</DeployExtension>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Update="VSPackage.resx" MergeWithCTO="True" ManifestResourceName="VSPackage" />
+        <VSCTCompile Include="VSPackage.vsct" ResourceName="Menus.ctmenu" SubType="Designer" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Page Include="**\*.xaml" SubType="Designer" Generator="MSBuild:Compile" />
+        <Compile Update="**\*.xaml.cs" SubType="Code" DependentUpon="%(Filename)" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Resource Include="Images\filter-small.png" />
+        <Resource Include="Images\Copy_Icon_2.jpg" />
+        <Resource Include="Images\StepOver.png" />
+        <Resource Include="Images\StepOut.png" />
+        <Resource Include="Images\StepInto.png" />
+        <Resource Include="Images\StepMode.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Reference Include="System.Design" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Cosmos.Debug.Common\Cosmos.Debug.Common.csproj" />
+        <ProjectReference Include="..\Cosmos.Debug.DebugConnectors\Cosmos.Debug.DebugConnectors.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.VisualStudio.SDK" Version="17.0.31902.203" />
+        <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="17.0.5232">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Update="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" />
+    </ItemGroup>
+
+</Project>

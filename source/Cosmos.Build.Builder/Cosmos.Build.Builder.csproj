@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net472</TargetFramework>
+        <OutputType>WinExe</OutputType>
+        <ApplicationIcon>Resources\Cosmos.ico</ApplicationIcon>
+        <IncludeWpfReferences>True</IncludeWpfReferences>
+        <AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
+        <SignAssembly>False</SignAssembly>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ApplicationDefinition Include="App.xaml" SubType="Designer" Generator="MSBuild:Compile" />
+        <Page Include="**\*.xaml" Exclude="App.xaml" SubType="Designer" Generator="MSBuild:Compile" />
+        <Compile Update="**\*.xaml.cs" SubType="Designer" DependentUpon="%(Filename)" />
+        <Resource Include="Resources\**" />
+        <UpToDateCheckInput Include="@(ApplicationDefinition)" />
+        <UpToDateCheckInput Include="@(Page)" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Reference Include="System.Net.Http" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.VisualStudio.Setup.Configuration.Interop" Version="1.16.30" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+        <PackageReference Include="NuGet.Common" />
+        <PackageReference Include="NuGet.Configuration" />
+        <PackageReference Include="System.Runtime.WindowsRuntime" Version="4.6.0" />
+        <PackageReference Include="WPF-UI" Version="2.0.3" />
+    </ItemGroup>
+
+</Project>

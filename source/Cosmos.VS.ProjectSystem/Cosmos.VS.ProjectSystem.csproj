@@ -1,0 +1,75 @@
+﻿<Project Sdk="Microsoft.NET.SDK">
+
+    <PropertyGroup>
+        <TargetFramework>net48</TargetFramework>
+        <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+        <RootNamespace>Cosmos.VS.ProjectSystem</RootNamespace>
+        <FileVersion>1.0.0.0</FileVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <UseCodebase>true</UseCodebase>
+        <ExtensionInstallationRoot>Extensions</ExtensionInstallationRoot>
+        <ExtensionInstallationFolder>Cosmos\ProjectSystem</ExtensionInstallationFolder>
+        <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Remove="ProjectTemplates\**" />
+        <Content Include="ProjectTemplates\**" IncludeInVSIX="True" />
+        <Content Include="Resources\Icon.png" IncludeInVSIX="True" />
+        <Content Include="Resources\CosmosProjectRootIcon.png" IncludeInVSIX="True" />
+        <Content Include="CosmosImages.imagemanifest" IncludeInVSIX="True" />
+        <EmbeddedResource Update="VSPackage.resx" MergeWithCTO="True" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Content Include="BuildSystem\**" IncludeInVSIX="True" InstallRoot="MSBuild" VSIXSubPath="Cosmos\%(RecursiveDir)" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <XamlPropertyRule Include="BuildSystem\Rules\BootableConfiguration.xaml" />
+        <XamlPropertyRule Include="BuildSystem\Rules\Content.xaml" />
+        <XamlPropertyRule Include="BuildSystem\Rules\CosmosDebugger.xaml" />
+        <XamlPropertyRule Include="BuildSystem\Rules\LaunchConfiguration.xaml" />
+        <XamlPropertyRule Include="BuildSystem\Rules\PackageReference.xaml" />
+        <XamlPropertyRule Include="BuildSystem\Rules\ResolvedPackageReference.xaml" />
+        <XamlPropertyRule Include="BuildSystem\Rules\CosmosPropertyPage.xaml" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="BuildSystem\Rules\CosmosPropertyPage.xaml">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <Generator>MSBuild:Compile</Generator>
+        </None>
+        <None Update="CosmosImages.imagemanifest">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <Generator>MSBuild:Compile</Generator>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Cosmos.Build.Common" />
+        <PackageReference Include="Microsoft.VisualStudio.ProjectSystem.Analyzers" PrivateAssets="All" Version="17.0.1313-pre" />
+        <PackageReference Include="Microsoft.VisualStudio.ProjectSystem.Sdk" Version="17.0.1313-pre" />
+        <PackageReference Include="Microsoft.VisualStudio.SDK" Version="17.0.31902.203" />
+        <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
+        <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="17.0.5232">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="System.Resources.Extensions" Version="6.0.0" />
+    </ItemGroup>
+
+    <Target Name="IncludeMissingAssemblies" AfterTargets="GetVsixSourceItems" BeforeTargets="RemoveVSSDKAssemblies">
+        <ItemGroup>
+            <VSIXSourceItem Include="@(ReferenceCopyLocalPaths)" Condition="'%(Filename)' == 'Microsoft.Win32.Registry'" />
+        </ItemGroup>
+    </Target>
+
+    <ItemGroup>
+        <PackageReference Update="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" />
+    </ItemGroup>
+
+</Project>

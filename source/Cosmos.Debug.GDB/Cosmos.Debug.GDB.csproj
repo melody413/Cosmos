@@ -1,0 +1,69 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net472</TargetFramework>
+        <OutputType>WinExe</OutputType>
+        <IncludeWindowsFormsReferences>True</IncludeWindowsFormsReferences>
+    </PropertyGroup>
+
+    <ItemGroup>
+
+        <Compile Update="BreakpointUC.cs" />
+        <Compile Update="BreakpointUC.Designer.cs" DependentUpon="BreakpointUC.cs" />
+
+        <Compile Update="ToolTipListBox.cs" />
+
+        <Compile Update="WatchUC.cs" />
+        <Compile Update="WatchUC.Designer.cs" DependentUpon="WatchUC.cs" />
+
+        <Compile Update="FormBreakpoints.cs" />
+        <Compile Update="FormBreakpoints.Designer.cs" DependentUpon="FormBreakpoints.cs" />
+
+        <Compile Update="FormCallStack.cs" />
+        <Compile Update="FormCallStack.Designer.cs" DependentUpon="FormCallStack.cs" />
+
+        <Compile Update="FormLog.cs" />
+        <Compile Update="FormLog.Designer.cs" DependentUpon="FormLog.cs" />
+
+        <Compile Update="FormMain.cs" />
+        <Compile Update="FormMain.Designer.cs" DependentUpon="FormMain.cs" />
+
+        <Compile Update="FormRegisters.cs" />
+        <Compile Update="FormRegisters.Designer.cs" DependentUpon="FormRegisters.cs" />
+
+        <Compile Update="FormWatches.cs" />
+        <Compile Update="FormWatches.Designer.cs" DependentUpon="FormWatches.cs" />
+
+        <Compile Update="FormHistory.cs" />
+        <Compile Update="FormHistory.Designer.cs" DependentUpon="FormHistory.cs" />
+
+        <Compile Update="FormSettings.cs" />
+        <Compile Update="FormSettings.Designer.cs" DependentUpon="FormSettings.cs" />
+
+        <EmbeddedResource Update="**" DependentUpon="%(Filename).cs" />
+
+        <None Update="SettingsDS.xsc" DependentUpon="SettingsDS.xsd" />
+        <None Update="SettingsDS.xsd" SubType="Designer" Generator="MSDataSetGenerator" LastGenOutput="SettingsDS.Designer.cs" />
+        <None Update="SettingsDS.xss" DependentUpon="SettingsDS.xsd" />
+
+        <Compile Update="SettingsDS.Designer.cs" AutoGen="True" DesignTime="True" DependentUpon="SettingsDS.xsd" />
+
+        <Content Include="Docs\index.html" />
+        <Content Include="ReadMe.html" />
+        <Content Include="ToDo.html" />
+
+    </ItemGroup>
+
+    <ItemGroup>
+        <Reference Include="System.Data.DataSetExtensions" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Cosmos.Build.Common" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Update="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" />
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0-windows</TargetFramework>
+        <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+        <OutputType>WinExe</OutputType>
+        <ApplicationIcon>Cosmos.ico</ApplicationIcon>
+        <UseWPF>true</UseWPF>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Update="**\*.xaml.cs" SubType="Designer" DependentUpon="%(Filename)" />
+        <Resource Include="Cosmos.ico" />
+    </ItemGroup>
+
+</Project>

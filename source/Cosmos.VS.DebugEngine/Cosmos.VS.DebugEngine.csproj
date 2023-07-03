@@ -1,0 +1,78 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net48</TargetFramework>
+        <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <Net48>True</Net48>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Content Include="Resources\Icon.png" IncludeInVSIX="True" />
+        <Content Include="Cosmos.DebugEngine.pkgdef" CopyToOutputDirectory="Always" IncludeInVSIX="True" />
+        <EmbeddedResource Update="VSPackage.resx" MergeWithCTO="True" />
+        <VSCTCompile Include="VSPackage.vsct" ResourceName="Menus.ctmenu" SubType="Designer" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="IL2CPU.Debug.Symbols.Net48" />
+        <PackageReference Include="Cosmos.Build.Common" />
+        <PackageReference Include="Microsoft.VisualStudio.Debugger.Engine" Version="17.0.2012801" />
+        <PackageReference Include="Microsoft.VisualStudio.SDK" Version="17.0.31902.203" />
+        <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
+        <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="17.0.5232">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.0.6" />
+        <PackageReference Include="System.Reflection.TypeExtensions" Version="4.7.0" />
+        <PackageReference Include="System.ServiceProcess.ServiceController" Version="5.0.0" />
+        <PackageReference Update="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Cosmos.Debug.Common\Cosmos.Debug.Common.csproj" />
+        <ProjectReference Include="..\Cosmos.Debug.DebugConnectors\Cosmos.Debug.DebugConnectors.csproj" />
+        <ProjectReference Include="..\Cosmos.Debug.Hosts\Cosmos.Debug.Hosts.csproj" />
+        <ProjectReference Include="..\Cosmos.VS.Windows\Cosmos.VS.Windows.csproj">
+            <Name>Cosmos.VS.Windows</Name>
+            <IncludeOutputGroupsInVSIX>BuiltProjectOutputGroup;GetCopyToOutputDirectoryItems;SatelliteDllsProjectOutputGroup;PkgdefProjectOutputGroup</IncludeOutputGroupsInVSIX>
+            <IncludeOutputGroupsInVSIXLocalOnly>DebugSymbolsProjectOutputGroup</IncludeOutputGroupsInVSIXLocalOnly>
+        </ProjectReference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Properties\Settings.Designer.cs">
+        <DesignTimeSharedInput>True</DesignTimeSharedInput>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>Settings.settings</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="Properties\Settings.settings">
+        <Generator>SettingsSingleFileGenerator</Generator>
+        <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+      </None>
+    </ItemGroup>
+
+    <Target Name="IncludeESqliteInVsix" BeforeTargets="ResolveAssemblyReferences" AfterTargets="InjectReference_fe7f61ec-723c-48c6-a80d-1e957cf2feaf">
+
+        <ItemGroup>
+            <Content Condition="'%(Content.Filename)' == 'e_sqlite3'">
+                <IncludeInVSIX>True</IncludeInVSIX>
+            </Content>
+        </ItemGroup>
+
+    </Target>
+
+    <Target Name="IncludePackageReferenceDependencies" AfterTargets="GetVsixSourceItems">
+
+        <ItemGroup>
+            <VSIXSourceItem Include="@(ReferenceCopyLocalPaths)" Condition="!$([System.String]::new('%(ReferenceCopyLocalPaths.Filename)').StartsWith('Microsoft.VisualStudio')) AND !$([System.String]::new('%(ReferenceCopyLocalPaths.Filename)').StartsWith('System')) AND !$([System.String]::new('%(ReferenceCopyLocalPaths.Filename)').StartsWith('EnvDTE')) AND '%(ReferenceCopyLocalPaths.Filename)' != 'mscorlib' AND '%(ReferenceCopyLocalPaths.Filename)' != 'stdole'" />
+        </ItemGroup>
+
+    </Target>
+</Project>

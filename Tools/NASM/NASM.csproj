@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <RuntimeIdentifier>win-x86</RuntimeIdentifier>
+        <OutputType>Exe</OutputType>
+        <Configurations>Debug;Release;TEST</Configurations>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="System.Diagnostics.Process" Version="4.3.0" />
+      <PackageReference Include="System.Net.NameResolution" Version="4.3.0" />
+      <PackageReference Include="System.Net.Primitives" Version="4.3.0" />
+    </ItemGroup>
+
+</Project>
